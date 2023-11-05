@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Edit Employee Details</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group">
+            <button class="btn btn-sm btn-outline-secondary" (click)="goBack()">
+                Go Back
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="pricing-header form-block mx-auto">
+            <form [formGroup]="editForm" (ngSubmit)="updateForm()" novalidate>
+                <div class="row">
+                    <div class="col-lg-5 col-md-12 col-sm-12">
+                        <div class="col-md-12">
+                            <label for="firstName">First Name</label>
+                            <input type="text" formControlName="firstName" class="form-control" required />
+                            <span *ngIf="firstName.touched && firstName.invalid" class="error">
+                                <sup>*</sup>Please enter at least First Name
+                            </span>
+                            <span *ngIf="firstName.errors?.['minlength']" class="error">
+                                <sup>*</sup>First Name shouldn't be less than 2 characters
+                            </span>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" formControlName="lastName" class="form-control" required />
+                            <span *ngIf="lastName.touched && lastName.invalid" class="error">
+                                <sup>*</sup>Please enter at least Last Name
+                            </span>
+                            <span *ngIf="lastName.errors?.['minlength']" class="error">
+                                <sup>*</sup>Last Name shouldn't be less than 2 characters
+                            </span>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="role">Role</label>
+                            <select formControlName="role" class="form-control" required>
+                                <option value="">Select a role</option>
+                                <option value="Product Designer">Product Designer</option>
+                                <option value="Software Developer">Software Developer</option>
+                                <option value="Sales Executive">Sales Executive</option>
+                                <option value="Logistics">Logistics</option>
+                            </select>
+                            <span *ngIf="role.touched && role.invalid" class="error">
+                                <sup>*</sup>Please select a role
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="joiningDate">Joining Date</label>
+                            <div class="input-group">
+                                <input id="joiningDate" type="text" class="form-control theme-default bs-datepicker"
+                                    bsDatepicker [bsConfig]="bsConfig" formControlName="joiningDate"
+                                    placeholder="Select Joining Date" />
+                                <span class="input-group-addon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="relievingDate">Relieving Date</label>
+                            <div class="input-group">
+                                <input id="relievingDate" type="text" class="form-control theme-default bs-datepicker"
+                                    bsDatepicker [bsConfig]="bsConfig" formControlName="relievingDate"
+                                    placeholder="Select Relieving Date" />
+                                <span class="input-group-addon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-success btn-block" style="margin: 1%;" [disabled]="!editForm.valid">
+                                Update Employee
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="pt-3 pb-2 border-bottom">
+    <h2>Add Employee</h2>
+</div>
+<br>
+<form [formGroup]="employeeForm" (ngSubmit)="submitEmployeeData()" novalidate>
+    <div class="row">
+        <div class="col-lg-5 col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="firstName">First Name</label>
+                    <input type="text" formControlName="firstName" class="form-control" required />
+                    <span *ngIf="firstName.touched && firstName.invalid" class="error">
+                        <sup>*</sup>Please enter at least First Name
+                    </span>
+                    <span *ngIf="firstName.errors?.['minlength']" class="error">
+                        <sup>*</sup>First Name shouldn't be less than 2 characters
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" formControlName="lastName" class="form-control" required />
+                    <span *ngIf="lastName.touched && lastName.invalid" class="error">
+                        <sup>*</sup>Please enter at least Last Name
+                    </span>
+                    <span *ngIf="lastName.errors?.['minlength']" class="error">
+                        <sup>*</sup>Last Name shouldn't be less than 2 characters
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <label for="role">Role</label>
+                    <select formControlName="role" class="form-control" required>
+                        <option value="">Select a role</option>
+                        <option value="Product Designer">Product Designer</option>
+                        <option value="Software Developer">Software Developer</option>
+                        <option value="Sales Executive">Sales Executive</option>
+                        <option value="Logistics">Logistics</option>
+                    </select>
+                    <span *ngIf="role.touched && role.invalid" class="error">
+                        <sup>*</sup>Please select a role
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="joiningDate">Joining Date</label>
+                    <div class="input-group">
+                        <input id="joiningDate" type="text" class="form-control theme-default bs-datepicker"
+                            bsDatepicker [bsConfig]="bsConfig" formControlName="joiningDate"
+                            placeholder="Select Joining Date" />
+                        <span class="input-group-addon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="relievingDate">Relieving Date</label>
+                    <div class="input-group">
+                        <input id="relievingDate" type="text" class="form-control theme-default bs-datepicker"
+                            bsDatepicker [bsConfig]="bsConfig" formControlName="relievingDate"
+                            placeholder="Select Relieving Date" />
+                        <span class="input-group-addon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-3 pb-2 border-bottom">
+                <button type="submit" class="btn btn-success" style="margin: 1%;" [disabled]="!employeeForm.valid">
+                    Add
+                </button>
+                <button type="button" class="btn btn-secondary" style="margin: 1%;" (click)="ResetForm()">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

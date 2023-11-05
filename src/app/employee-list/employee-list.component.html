@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2 class="h2">Employees List</h2>
+    <a routerLink="/register-employee" class="btn btn-success" *ngIf="hideWhenNoEmployee">
+        Add Employee
+    </a>
+</div>
+<div class="pricing-header mx-auto">
+    <div class="no-data text-center" *ngIf="preLoader">
+        <i class="bi bi-hourglass-bottom preloader-icon"></i>
+    </div>
+    <div class="no-data text-center" *ngIf="noData">
+        <i class="bi bi-person-dash nodata-icon"></i>
+        <p class="nodata-msg">No employee added yet!</p>
+        <a routerLink="/register-employee" class="btn btn-success"> Add Employee </a>
+    </div>
+    <div class="table-responsive" *ngIf="hideWhenNoEmployee">
+        <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+            <thead>
+                <tr>
+                    <th scope="col">Employee Id</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">From Date</th>
+                    <th scope="col">To Date</th>
+                    <th scope="col">Current / Previous</th>
+                    <th class="text-center" scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of Employee | paginate: { itemsPerPage: 8, currentPage: p }; let i = index">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+                    <td>{{ employee.joiningDate | date: 'dd-MM-yyyy' }}</td>
+                    <td>{{ !employee.relievingDate ? 'N/A' : employee.relievingDate | date: 'dd-MM-yyyy' }}</td>
+                    <td>{{ !employee.relievingDate ? 'Current' : 'Previous' }}</td>
+                    <td class="text-center action-block">
+                        <div class="btn-group">
+                            <span class="btn btn-outline-primary btn-sm"
+                                routerLink="/edit-employee/{{ employee.$key }}">Edit</span>
+                            <span class="btn btn-outline-danger btn-sm" (click)="deleteEmployee(employee)">Delete</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
