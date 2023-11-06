@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../shared/crud.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-employee',
@@ -11,15 +11,9 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 })
 export class AddEmployeeComponent implements OnInit {
   public employeeForm: FormGroup;
-  public bsConfig: Partial<BsDatepickerConfig>;
 
-  constructor(
-    public crudApi: CrudService,
-    public fb: FormBuilder,
-    public toastr: ToastrService
-  ) {
-    this.bsConfig = Object.assign({}, { containerClass: 'theme-default' });
-  }
+  constructor(public crudApi: CrudService, public fb: FormBuilder,
+    public toastr: ToastrService, private router: Router) {}
   ngOnInit() {
     this.crudApi.GetEmployeesList();
     this.EmployeeForm();
@@ -58,6 +52,7 @@ export class AddEmployeeComponent implements OnInit {
     this.toastr.success(
       this.employeeForm.controls['firstName'].value + ' successfully added!'
     );
+    this.router.navigate(['/view-employees']);
     this.ResetForm();
   }
 }

@@ -11,37 +11,77 @@
     <div class="no-data text-center" *ngIf="noData">
         <i class="bi bi-person-dash nodata-icon"></i>
         <p class="nodata-msg">No employee added yet!</p>
-        <a routerLink="/register-employee" class="btn btn-success"> Add Employee </a>
+        <a routerLink="/register-employee" class="btn btn-success">Add Employee</a>
     </div>
     <div class="table-responsive" *ngIf="hideWhenNoEmployee">
-        <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
-            <thead>
-                <tr>
-                    <th scope="col">Employee Id</th>
-                    <th scope="col">Employee Name</th>
-                    <th scope="col">From Date</th>
-                    <th scope="col">To Date</th>
-                    <th scope="col">Current / Previous</th>
-                    <th class="text-center" scope="col">Edit</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let employee of Employee | paginate: { itemsPerPage: 8, currentPage: p }; let i = index">
-                    <th scope="row">{{ i + 1 }}</th>
-                    <td>{{ employee.firstName }} {{ employee.lastName }}</td>
-                    <td>{{ employee.joiningDate | date: 'dd-MM-yyyy' }}</td>
-                    <td>{{ !employee.relievingDate ? 'N/A' : employee.relievingDate | date: 'dd-MM-yyyy' }}</td>
-                    <td>{{ !employee.relievingDate ? 'Current' : 'Previous' }}</td>
-                    <td class="text-center action-block">
-                        <div class="btn-group">
-                            <span class="btn btn-outline-primary btn-sm"
-                                routerLink="/edit-employee/{{ employee.$key }}">Edit</span>
-                            <span class="btn btn-outline-danger btn-sm" (click)="deleteEmployee(employee)">Delete</span>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Current Employees</h4>
+                    <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+                        <thead>
+                            <tr>
+                                <th scope="col">Employee Id</th>
+                                <th scope="col">Employee Name</th>
+                                <th scope="col">Joining Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let employee of Employee | paginate: { itemsPerPage: 8, currentPage: p }; let i = index;">
+                                <ng-container *ngIf="!employee.relievingDate">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+                                    <td>{{ employee.joiningDate | date: 'dd-MM-yyyy' }}</td>
+                                    <td class="text-center action-block">
+                                        <div class="btn-group">
+                                            <span class="btn btn-outline-primary btn-sm"
+                                                routerLink="/edit-employee/{{ employee.$key }}">Edit</span>
+                                            <span class="btn btn-outline-danger btn-sm"
+                                                (click)="deleteEmployee(employee)">Delete</span>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h4>Previous Employees</h4>
+                    <table class="table table-bordered table-responsive-sm table-responsive-md table-responsive-lg">
+                        <thead>
+                            <tr>
+                                <th scope="col">Employee Id</th>
+                                <th scope="col">Employee Name</th>
+                                <th scope="col">Joining Date</th>
+                                <th scope="col">Relieving Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                *ngFor="let employee of Employee | paginate: { itemsPerPage: 8, currentPage: p }; let i = index;">
+                                <ng-container *ngIf="employee.relievingDate">
+                                    <th scope="row">{{ i + 1 }}</th>
+                                    <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+                                    <td>{{ employee.joiningDate | date: 'dd-MM-yyyy' }}</td>
+                                    <td>{{ employee.relievingDate | date: 'dd-MM-yyyy' }}</td>
+                                    <td class="text-center action-block">
+                                        <div class="btn-group">
+                                            <span class="btn btn-outline-primary btn-sm"
+                                                routerLink="/edit-employee/{{ employee.$key }}">Edit</span>
+                                            <span class="btn btn-outline-danger btn-sm"
+                                                (click)="deleteEmployee(employee)">Delete</span>
+                                        </div>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
 </div>

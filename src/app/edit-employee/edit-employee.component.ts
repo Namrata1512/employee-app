@@ -4,7 +4,6 @@ import { CrudService } from '../shared/crud.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 @Component({
   selector: 'app-edit-employee',
   templateUrl: './edit-employee.component.html',
@@ -12,19 +11,11 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 })
 export class EditEmployeeComponent implements OnInit {
   editForm: FormGroup;
-  public bsConfig: Partial<BsDatepickerConfig>;
   id: any;
 
-  constructor(
-    private crudApi: CrudService,
-    private fb: FormBuilder,
-    private location: Location,
-    private actRoute: ActivatedRoute,
-    private router: Router,
-    private toastr: ToastrService
-  ) {
-    this.bsConfig = Object.assign({}, { containerClass: 'theme-default' });
-  }
+  constructor(private crudApi: CrudService, private fb: FormBuilder,
+    private location: Location, private actRoute: ActivatedRoute,
+    private router: Router, private toastr: ToastrService) { }
   ngOnInit() {
     this.updateEmployeeData();
     this.id = this.actRoute.snapshot.paramMap.get('id');
@@ -74,7 +65,7 @@ export class EditEmployeeComponent implements OnInit {
     this.location.back();
   }
   updateForm() {
-    this.crudApi.CreateEmployeesList();
+    // this.crudApi.CreateEmployeesList();
     this.crudApi.UpdateEmployee(this.editForm.value, this.id);
     this.toastr.success(
       this.editForm.controls['firstName'].value + ' updated successfully'

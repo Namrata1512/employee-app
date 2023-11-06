@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-lg-5 col-md-12 col-sm-12">
                         <div class="col-md-12">
-                            <label for="firstName">First Name</label>
+                            <label>First Name</label>
                             <input type="text" formControlName="firstName" class="form-control" required />
                             <span *ngIf="firstName.touched && firstName.invalid" class="error">
                                 <sup>*</sup>Please enter at least First Name
@@ -25,7 +25,7 @@
                             </span>
                         </div>
                         <div class="col-md-12">
-                            <label for="lastName">Last Name</label>
+                            <label>Last Name</label>
                             <input type="text" formControlName="lastName" class="form-control" required />
                             <span *ngIf="lastName.touched && lastName.invalid" class="error">
                                 <sup>*</sup>Please enter at least Last Name
@@ -35,7 +35,7 @@
                             </span>
                         </div>
                         <div class="col-md-12">
-                            <label for="role">Role</label>
+                            <label>Role</label>
                             <select formControlName="role" class="form-control" required>
                                 <option value="">Select a role</option>
                                 <option value="Product Designer">Product Designer</option>
@@ -48,28 +48,27 @@
                             </span>
                         </div>
                         <div class="form-group">
-                            <label for="joiningDate">Joining Date</label>
-                            <div class="input-group">
-                                <input id="joiningDate" type="text" class="form-control theme-default bs-datepicker"
-                                    bsDatepicker [bsConfig]="bsConfig" formControlName="joiningDate"
-                                    placeholder="Select Joining Date" />
-                                <span class="input-group-addon">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </span>
-                            </div>
+                            <label>From Date</label>
+                            <mat-form-field class="form-control" style="padding: 0%;">
+                                <input matInput [matDatepicker]="joiningDatePicker" formControlName="joiningDate"
+                                    placeholder="Select From Date" required />
+                                <mat-datepicker-toggle matSuffix [for]="joiningDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #joiningDatePicker></mat-datepicker>
+                            </mat-form-field>
+                            <mat-error *ngIf="joiningDate.touched && joiningDate.invalid">
+                                <sup>*</sup>Please select a From Date
+                            </mat-error>
                         </div>
                         <div class="form-group">
-                            <label for="relievingDate">Relieving Date</label>
-                            <div class="input-group">
-                                <input id="relievingDate" type="text" class="form-control theme-default bs-datepicker"
-                                    bsDatepicker [bsConfig]="bsConfig" formControlName="relievingDate"
-                                    placeholder="Select Relieving Date" />
-                                <span class="input-group-addon">
-                                    <i class="fas fa-calendar-alt"></i>
-                                </span>
-                            </div>
+                            <label>To Date</label>
+                            <mat-form-field class="form-control" style="padding: 0%;">
+                                <input matInput [matDatepicker]="relievingDatePicker" formControlName="relievingDate"
+                                    placeholder="Select To Date" />
+                                <mat-datepicker-toggle matSuffix [for]="relievingDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #relievingDatePicker></mat-datepicker>
+                            </mat-form-field>
                         </div>
-                        <div class="form-group text-right">
+                        <div class="pt-2 pb-2 border-bottom">
                             <button type="submit" class="btn btn-success btn-block" style="margin: 1%;" [disabled]="!editForm.valid">
                                 Update Employee
                             </button>

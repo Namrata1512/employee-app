@@ -1,3 +1,17 @@
+@use '@angular/material' as mat;
+@include mat.core();
+$angular-employee-app-primary: mat.define-palette(mat.$indigo-palette);
+$angular-employee-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$angular-employee-app-warn: mat.define-palette(mat.$red-palette);
+$angular-employee-app-theme: mat.define-light-theme((
+  color: (
+    primary: $angular-employee-app-primary,
+    accent: $angular-employee-app-accent,
+    warn: $angular-employee-app-warn,
+  )
+));
+@include mat.all-component-themes($angular-employee-app-theme);
+
 body {
     font-size: .875rem;
     font-family: 'Poppins', sans-serif;
@@ -63,12 +77,12 @@ body {
 
 /* * Content */
 [role="main"] {
-    padding-top: 48px;
+    padding-top: 12px;
 }
 
 .dasboard-text {
     border-left: 1px solid rgb(255, 255, 255, .3);
-    color: rgb(255, 255, 255, .5);
+    color: white;
     display: inline-block;
     padding: 0 0 0 14px;
     font-size: 15px;
@@ -110,7 +124,7 @@ body {
 }
 
 .bg-dark {
-    background-color: #1633FF !important;
+    background-color: #0d6efd !important;
 }
 
 .gap-right {
@@ -158,7 +172,7 @@ body .ngx-pagination li:last-child {
 }
 
 body .ngx-pagination .current {
-    background: #055AF9;
+    background: #0d6efd;
 }
 
 .ngx-pagination a:hover,
@@ -231,7 +245,7 @@ label {
 }
 
 [role="main"] {
-    padding-top: 65px;
+    padding-top: 25px;
 }
 
 .preloader {
