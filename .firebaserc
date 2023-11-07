@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "employee-app-fddea"
+  },
+  "targets": {
+    "employee-app-fddea": {
+      "hosting": {
+        "angular-employee-app": [
+          "employee-app-fddea"
+        ]
+      }
+    }
+  }
+}
